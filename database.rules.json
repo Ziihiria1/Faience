@@ -1,0 +1,20 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "rooms": {
+      "$code": {
+        ".read": "$code.matches(/^[A-HJ-NP-Z2-9]{5}$/)",
+        ".write": "$code.matches(/^[A-HJ-NP-Z2-9]{5}$/)",
+        ".validate": "newData.hasChildren(['players', 'game'])",
+        "game": { ".validate": "newData.isString() && newData.val().length < 20000" },
+        "players": {
+          "$i": {
+            ".validate": "($i === '0' || $i === '1') && newData.hasChildren(['id', 'name', 'k'])",
+            "name": { ".validate": "newData.isString() && newData.val().length <= 18" }
+          }
+        }
+      }
+    }
+  }
+}
